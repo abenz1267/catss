@@ -1,5 +1,5 @@
 {
-  "root": "/test_files",
+  "root": "test_files",
   "minify": false,
   "outputs": [
     {
@@ -8,7 +8,7 @@
     },
     {
       "file": "notbase",
-      "files": ["third", "fourth"]
+      "files": ["nested/third", "nested/fourth"]
     }
   ]
 }
