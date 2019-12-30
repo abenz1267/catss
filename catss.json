@@ -1,0 +1,14 @@
+{
+  "root": "/test_files",
+  "minify": false,
+  "outputs": [
+    {
+      "file": "base",
+      "files": ["first", "second"]
+    },
+    {
+      "file": "notbase",
+      "files": ["third", "fourth"]
+    }
+  ]
+}
