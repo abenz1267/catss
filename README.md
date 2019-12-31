@@ -1,8 +1,8 @@
-# CATSS is a CLI tool for concatenating CSS files
+# Catss is a CLI tool for concatenating CSS files
 
 ## Usage
 
-You can define the output files and according children in a json config. Take the one in here as an example. CATSS will watch for file changes and update the according output file. Minifcation can be done, if desired.
+You can define the output files and according children in a json config. Take the one in here as an example. Catss will watch for file changes and update the according output file. Minifcation can be done, if desired.
 
 Code might not be the most beatiful. I live dangerously....so: no tests. Feel free to report issues.
 
@@ -16,7 +16,7 @@ Code might not be the most beatiful. I live dangerously....so: no tests. Feel fr
 
 -w: enables the filewatcher
 
--m: enabled minification. This setting will always override the one you set in your config
+-m: enables minification
 
 -c: config file. If the config file doesn't exist, Catss will create a dummy one
 

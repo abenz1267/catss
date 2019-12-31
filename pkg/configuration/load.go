@@ -21,7 +21,7 @@ type Config struct {
 	File          string `json:"-"`
 	content       []byte
 	Root          string   `json:"root"`
-	Minify        bool     `json:"minify"`
+	Minify        bool     `json:"-"`
 	Outputs       []Output `json:"outputs"`
 	CreateMissing bool     `json:"-"`
 }
@@ -76,7 +76,6 @@ func createDummy(file string) {
 	c := `
 {
   "root": "",
-  "minify": false,
   "outputs": [
     {
       "file": "style",
