@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"github.com/abenz1267/catss/pkg/util"
 )
 
 const msg = "Paths can not start with a '/'"
@@ -16,13 +18,16 @@ type Output struct {
 }
 
 type Config struct {
-	Root    string   `json:"root"`
-	Minify  bool     `json:"minify"`
-	Outputs []Output `json:"outputs"`
+	File          string `json:"-"`
+	content       []byte
+	Root          string   `json:"root"`
+	Minify        bool     `json:"minify"`
+	Outputs       []Output `json:"outputs"`
+	CreateMissing bool     `json:"-"`
 }
 
-func Load(file string) (Config, error) {
-	var cfg Config
+func Load(file string) (*Config, error) {
+	cfg := &Config{}
 
 	if _, err := os.Stat(file); os.IsNotExist(err) {
 		createDummy(file)
@@ -33,11 +38,38 @@ func Load(file string) (Config, error) {
 		return cfg, err
 	}
 
-	json.Unmarshal(b, &cfg)
+	cfg.content = b
+
+	err = json.Unmarshal(b, cfg)
+	if err != nil {
+		return cfg, err
+	}
 
 	validate(cfg)
 
 	return cfg, err
+}
+
+func Update(cfg *Config) (bool, error) {
+	b, err := ioutil.ReadFile(cfg.File)
+	if err != nil {
+		return false, err
+	}
+
+	if !util.IsEqual(b, cfg.content) {
+		err := json.Unmarshal(b, cfg)
+		if err != nil {
+			return false, err
+		}
+
+		cfg.content = b
+
+		log.Println("Updated config")
+
+		return true, nil
+	}
+
+	return false, nil
 }
 
 func createDummy(file string) {
@@ -69,7 +101,7 @@ func createDummy(file string) {
 	log.Fatal("Config file created. You need to edit it before using Catss.")
 }
 
-func validate(cfg Config) {
+func validate(cfg *Config) {
 	cp(cfg.Root)
 
 	for _, v := range cfg.Outputs {

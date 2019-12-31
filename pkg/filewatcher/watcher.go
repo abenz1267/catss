@@ -9,7 +9,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
-func Watch(cfg configuration.Config) {
+func Watch(cfg *configuration.Config) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)
@@ -25,7 +25,23 @@ func Watch(cfg configuration.Config) {
 					return
 				}
 
-				cat.Update(event.Name, cfg.Root, cfg.Minify)
+				if event.Name != cfg.File {
+					cat.Update(event.Name, cfg.Root, cfg.Minify)
+				} else {
+					updated, err := configuration.Update(cfg)
+					if err != nil {
+						log.Fatal(err)
+					}
+
+					if updated {
+						err = cat.Load(cfg)
+						if err != nil {
+							log.Fatal(err)
+						}
+
+						addFiles(watcher, cfg)
+					}
+				}
 
 				err = watcher.Add(event.Name)
 				if err != nil {
@@ -40,14 +56,23 @@ func Watch(cfg configuration.Config) {
 		}
 	}()
 
+	addFiles(watcher, cfg)
+
+	err = watcher.Add(cfg.File)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	<-done
+}
+
+func addFiles(watcher *fsnotify.Watcher, cfg *configuration.Config) {
 	for _, v := range cfg.Outputs {
 		for _, m := range v.Files {
-			err = watcher.Add(filepath.Join(cfg.Root, m+cat.EXT))
+			err := watcher.Add(filepath.Join(cfg.Root, m+cat.EXT))
 			if err != nil {
 				log.Fatal(err)
 			}
 		}
 	}
-
-	<-done
 }

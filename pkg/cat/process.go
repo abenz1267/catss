@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/abenz1267/catss/pkg/configuration"
+	"github.com/abenz1267/catss/pkg/util"
 	"github.com/tdewolff/minify/v2"
 	"github.com/tdewolff/minify/v2/css"
 )
@@ -29,8 +30,9 @@ type file struct {
 
 var o []output
 
-func Load(cfg configuration.Config) error {
+func Load(cfg *configuration.Config) error {
 	var err error
+	o = nil
 
 	for _, v := range cfg.Outputs {
 		no := output{file: v.File}
@@ -38,7 +40,21 @@ func Load(cfg configuration.Config) error {
 		for _, m := range v.Files {
 			f := file{name: m}
 
-			f.content, err = ioutil.ReadFile(filepath.Join(cfg.Root, m+EXT))
+			path := filepath.Join(cfg.Root, m+EXT)
+
+			if cfg.CreateMissing {
+				if _, err := os.Stat(path); os.IsNotExist(err) {
+					file, err := os.Create(path)
+					if err != nil {
+						return err
+					}
+					file.Close()
+
+					log.Printf("Created file: %s", path)
+				}
+			}
+
+			f.content, err = ioutil.ReadFile(path)
 			if err != nil {
 				return err
 			}
@@ -123,7 +139,7 @@ func Update(file string, root string, minify bool) error {
 					return err
 				}
 
-				if !isEqual(b, m.content) {
+				if !util.IsEqual(b, m.content) {
 					log.Printf("Updating file: %s", file)
 					o[i].files[n].content = b
 
@@ -137,22 +153,4 @@ func Update(file string, root string, minify bool) error {
 	}
 
 	return nil
-}
-
-func isEqual(a, b []byte) bool {
-	if (a == nil) != (b == nil) {
-		return false
-	}
-
-	if len(a) != len(b) {
-		return false
-	}
-
-	for i := range a {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-
-	return true
 }
