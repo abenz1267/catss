@@ -6,7 +6,11 @@ You can define the output files and according children in a json config. Take th
 
 Code might not be the most beatiful. I live dangerously....so: no tests. Feel free to report issues.
 
-You can download the executables [here](https://github.com/abenz1267/catss/releases).
+[Linux](https://github.com/abenz1267/catss/releases/download/v0.7-beta2/catss)
+
+[OSX](https://github.com/abenz1267/catss/releases/download/v0.7-beta2/catss_osx)
+
+[Windows](https://github.com/abenz1267/catss/releases/download/v0.7-beta2/catss.exe)
 
 ## Command-Line Arguments
 
