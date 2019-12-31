@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/abenz1267/catss/pkg/configuration"
@@ -108,9 +109,15 @@ func writeOutput(out output, min bool) error {
 }
 
 func Update(file string, root string, minify bool) error {
+	sep := "/"
+
+	if runtime.GOOS == "windows" {
+		sep = "\\"
+	}
+
 	cleaned := strings.Replace(file, root, "", 1)
 	cleaned = strings.Replace(cleaned, EXT, "", 1)
-	cleaned = strings.TrimPrefix(cleaned, "/")
+	cleaned = strings.TrimPrefix(cleaned, sep)
 
 	for i, v := range o {
 		for n, m := range v.files {
