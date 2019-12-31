@@ -8,6 +8,12 @@ Code might not be the most beatiful. I live dangerously....so: no tests. Feel fr
 
 You can download the Linux and Windows executables [here](https://github.com/abenz1267/catss/releases).
 
+## Command-Line Arguments
+
+-w: enables the filewatcher
+-m: enabled minification. This setting will always override the one you set in your config
+-c: config file. If the config file doesn't exist, Catss will create a dummy one
+
 
 ## Legal things
 
