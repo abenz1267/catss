@@ -11,7 +11,9 @@ You can download the Linux and Windows executables [here](https://github.com/abe
 ## Command-Line Arguments
 
 -w: enables the filewatcher
+
 -m: enabled minification. This setting will always override the one you set in your config
+
 -c: config file. If the config file doesn't exist, Catss will create a dummy one
 
 
