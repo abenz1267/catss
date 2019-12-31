@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 )
 
@@ -22,6 +23,11 @@ type Config struct {
 
 func Load(file string) (Config, error) {
 	var cfg Config
+
+	if _, err := os.Stat(file); os.IsNotExist(err) {
+		createDummy(file)
+	}
+
 	b, err := ioutil.ReadFile(file)
 	if err != nil {
 		return cfg, err
@@ -32,6 +38,28 @@ func Load(file string) (Config, error) {
 	validate(cfg)
 
 	return cfg, err
+}
+
+func createDummy(file string) {
+	c := `
+{
+  "root": "",
+  "minify": false,
+  "outputs": [
+    {
+      "file": "style",
+      "files": ["first", "second"]
+    }
+  ]
+}
+	`
+
+	err := ioutil.WriteFile(file, []byte(strings.TrimSpace(c)), 777)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Fatal("Config file created. You need to edit it before using Catss.")
 }
 
 func validate(cfg Config) {
