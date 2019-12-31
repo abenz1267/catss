@@ -20,6 +20,8 @@ Code might not be the most beatiful. I live dangerously....so: no tests. Feel fr
 
 -c: config file. If the config file doesn't exist, Catss will create a dummy one
 
+-n: decides, if Catss will create missing css files
+
 
 ## Legal things
 
