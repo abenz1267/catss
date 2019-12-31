@@ -54,7 +54,14 @@ func createDummy(file string) {
 }
 	`
 
-	err := ioutil.WriteFile(file, []byte(strings.TrimSpace(c)), 777)
+	f, err := os.Create(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer f.Close()
+
+	_, err = f.WriteString(strings.TrimSpace(c))
 	if err != nil {
 		log.Fatal(err)
 	}

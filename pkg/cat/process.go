@@ -14,7 +14,6 @@ import (
 	"github.com/tdewolff/minify/v2/css"
 )
 
-const PERM = 777
 const EXT = ".css"
 const MIME = "test/css"
 
@@ -75,32 +74,29 @@ func writeOutput(out output, min bool) error {
 		b.Write(m.content)
 	}
 
+	fn := out.file + EXT
+	f, err := os.Create(fn)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+
 	if min {
 		minified, err := minifier.Bytes(MIME, b.Bytes())
 		if err != nil {
 			return err
 		}
 
-		err = ioutil.WriteFile(out.file+EXT, minified, PERM)
+		_, err = f.Write(minified)
 		if err != nil {
 			return err
 		}
-
-		return nil
-	}
-
-	fn := out.file + EXT
-
-	if _, err := os.Stat(fn); !os.IsNotExist(err) {
-		err := os.Remove(fn)
+	} else {
+		_, err = f.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
-	}
-
-	err = ioutil.WriteFile(fn, b.Bytes(), PERM)
-	if err != nil {
-		return err
 	}
 
 	log.Printf("Created file: %s", fn)
