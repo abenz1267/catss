@@ -1,6 +1,5 @@
 {
   "root": "test_files",
-  "minify": false,
   "outputs": [
     {
       "file": "base",
