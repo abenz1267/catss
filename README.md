@@ -4,7 +4,7 @@
 
 You can define the output files and according children in a json config. Take the one in here as an example. Catss will watch for file changes and update the according output file. Minifcation can be done, if desired.
 
-Code might not be the most beatiful. I live dangerously....so: no tests. Feel free to report issues.
+Code might not be the most beautiful. I live dangerously....so: no tests. Feel free to report issues.
 
 [Linux](https://github.com/abenz1267/catss/releases/download/v0.7-beta2/catss)
 
