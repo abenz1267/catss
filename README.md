@@ -4,7 +4,7 @@
 
 You can define the output files and according children in a json config. Take the one in here as an example. Catss will watch for file changes and update the according output file. Minifcation can be done, if desired.
 
-Code might not be the most beatiful. I live dangerously....so: no tests. Feel free to report issues.
+Code might not be the most beautiful. I live dangerously....so: no tests. Feel free to report issues.
 
 [Linux](https://github.com/abenz1267/catss/releases/download/v0.7-beta2/catss)
 
@@ -25,7 +25,7 @@ Code might not be the most beatiful. I live dangerously....so: no tests. Feel fr
 
 ## Legal things
 
-### https://github.com/tdewolff
+### github.com/tdewolff/minify
 
 Copyright (c) 2015 Taco de Wolff
 
@@ -35,7 +35,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-### https://github.com/fsnotify/fsnotify
+### github.com/fsnotify/fsnotify
 
 Copyright (c) 2012 The Go Authors. All rights reserved.
 Copyright (c) 2012-2019 fsnotify Authors. All rights reserved.
