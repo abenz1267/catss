@@ -1,13 +1,12 @@
 package configuration
 
 import (
+	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"os"
 	"strings"
-
-	"github.com/abenz1267/catss/pkg/util"
 )
 
 const msg = "Paths can not start with a '/'"
@@ -56,7 +55,7 @@ func Update(cfg *Config) (bool, error) {
 		return false, err
 	}
 
-	if !util.IsEqual(b, cfg.content) {
+	if !bytes.Equal(b, cfg.content) {
 		err := json.Unmarshal(b, cfg)
 		if err != nil {
 			return false, err

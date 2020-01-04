@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"github.com/abenz1267/catss/pkg/configuration"
-	"github.com/abenz1267/catss/pkg/util"
 	"github.com/tdewolff/minify/v2"
 	"github.com/tdewolff/minify/v2/css"
 )
@@ -139,7 +138,7 @@ func Update(file string, root string, minify bool) error {
 					return err
 				}
 
-				if !util.IsEqual(b, m.content) {
+				if !bytes.Equal(b, m.content) {
 					log.Printf("Updating file: %s", file)
 					o[i].files[n].content = b
 
